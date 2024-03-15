@@ -65,7 +65,7 @@ Submitted by: **Amy Wong**
 
 This web app: **Getting ready for your first ASL exam? Here are some flashcards to help you study!**
 
-Time spent: **X** hours spent in total
+Time spent: **8** hours spent in total
 
 ## Required Features
 
@@ -78,8 +78,8 @@ The following **required** functionality is completed:
 
 The following **optional** features are implemented:
 
-- [ ] A shuffle button is used to randomize the order of the cards
-- [ ] A user's answer may be counted as correct even when it is slightly different from the target answer
+- [x] A shuffle button is used to randomize the order of the cards
+- [x] A user's answer may be counted as correct even when it is slightly different from the target answer
 - [ ] A counter displays the user's current and longest streak of correct responses
 - [ ] A user can mark a card that they have mastered and have it removed from the pool of answers as well as added to a list of mastered cards
 
@@ -91,7 +91,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/OBo2Umd.gif' title='Video Walkthrough' alt='Video Walkthrough' />
 
 <!-- Replace this with whatever GIF tool you used! -->
 GIF created with LICECap
@@ -102,7 +102,8 @@ GIF created with LICECap
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+One challenge I had while working on the project was figuring out how to get the back button to work. It took me a bit
+to debug and was able to get it to work. Another challenge was making sure that the website checks for correctness on the guess the user inputs. I was able to have ChatGPT help me guide to write out the lines in the checkAnswer function.
 
 ## License
 

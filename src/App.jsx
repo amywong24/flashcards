@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Card from '/components/Card';
+import stringSimilarity from 'string-similarity';
 
 function App() {
   const [cards, setCards] = useState([{
@@ -88,7 +89,6 @@ function App() {
   const [index, setIndex] = useState(0);
   const [isFlipped, checkIsFlipped] = useState(false);
   const [userInput, setUserInput] = useState("");
-  const [seenCards, setSeenCards] = useState([]);
   const [inputClass, setInputClass] = useState('');
 
   const randomCards = () => {
@@ -147,8 +147,14 @@ function App() {
     // Convert user input to lowercase for case-insensitive comparison
     const guess = userInput.toLowerCase();
 
-    // Check if the guess is correct
-    const isCorrectGuess = guess === correctAnswer;
+    // Calculate the similarity between the guess and correct answer
+    const similarity = stringSimilarity.compareTwoStrings(guess, correctAnswer);
+
+    // Set a threshold for similarity (adjust as needed)
+    const similarityThreshold = 0.8;
+
+    // Check if the similarity meets the threshold
+    const isCorrectGuess = similarity >= similarityThreshold;
 
     // Apply appropriate CSS class based on correctness of the guess
     const newInputClass = isCorrectGuess ? 'correct' : 'incorrect';
@@ -160,6 +166,10 @@ function App() {
     setUserInput('');
   };
 
+  const handleShuffle = () => {
+    setCards(randomCards());
+    setIndex(0); // Reset index to the first card after shuffling
+  };
 
   return (
     <>
@@ -174,7 +184,6 @@ function App() {
         isFlipped={isFlipped}
         checkIsFlipped={checkIsFlipped}
         color={difficultyColors[cards[index].difficulty]} />
-      {/* guess section */}
       <div className='guess-area'>
         <p>Make your guess here: </p>
         <input
@@ -188,6 +197,7 @@ function App() {
       </div>
       <button id="prev" onClick={handlePrevSwitchCard} disabled={index === 0}> ← </button>
       <button id="next" onClick={handleSwitchCard}> → </button>
+      <button id="shuffle" onClick={handleShuffle}>Shuffle</button>
     </>
   )
 }
