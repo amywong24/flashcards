@@ -49,6 +49,7 @@ button {
   transition: border-color .25s;
   color: white;
   margin-top: 25px;
+  margin-right: 10px;
 }
 
 img {

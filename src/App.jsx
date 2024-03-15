@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Card from '/components/Card';
 
@@ -71,7 +71,7 @@ function App() {
   },
   {
     question: "vacation",
-    answer: "src/assets/vacatopm.png",
+    answer: "src/assets/vacation.png",
     difficulty: 'medium'
   },
   {
@@ -87,6 +87,27 @@ function App() {
 
   const [index, setIndex] = useState(0);
   const [isFlipped, checkIsFlipped] = useState(false);
+  const [userInput, setUserInput] = useState("");
+  const [seenCards, setSeenCards] = useState([]);
+
+  const randomCards = () => {
+    const random = [...cards];
+
+    const firstCard = random.shift();
+
+    for (let i = random.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [random[i], random[j]] = [random[j], random[i]];
+    }
+
+    random.unshift(firstCard);
+
+    return random;
+  };
+
+  useEffect(() => {
+    setCards(randomCards());
+  }, []);
 
   const handleSwitchCard = () => {
     if (index === cards.length - 1) {
@@ -96,6 +117,17 @@ function App() {
     }
     checkIsFlipped(false);
   };
+
+  const handlePrevSwitchCard = () => {
+    if (index === 0) {
+      // Do nothing if on the first card
+      return;
+    } else {
+      setIndex(index - 1); // Decrement index to go to the previous card
+    }
+    checkIsFlipped(false); // Reset flipped state
+  };
+  
 
   const difficultyColors = {
     easy: "lightgreen",
@@ -116,6 +148,8 @@ function App() {
         isFlipped={isFlipped}
         checkIsFlipped={checkIsFlipped}
         color={difficultyColors[cards[index].difficulty]} />
+       {/* guess section */}
+      <button onClick={handlePrevSwitchCard} disabled={index === 0}> ← </button>
       <button onClick={handleSwitchCard}> → </button>
     </>
   )
