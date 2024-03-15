@@ -35,6 +35,9 @@
 
 .back {
   transform: rotateX(180deg);
+}
+
+.front {
   bottom: -4px;
 }
 
@@ -48,8 +51,6 @@ button {
   cursor: pointer;
   transition: border-color .25s;
   color: white;
-  margin-top: 25px;
-  margin-right: 10px;
 }
 
 img {
@@ -57,7 +58,27 @@ img {
   height: 250px;
 }
 
-.front p {
+.back p {
   top: 100px;
   position: relative;
+}
+
+#next, #prev {
+  margin-right: 10px;
+}
+
+.correct {
+  border: 3px solid green;
+}
+
+.incorrect {
+  border: 3px solid rgb(255, 0, 0);
+}
+
+.guess-area input {
+  margin-right: 10px;
+}
+
+#next, #prev {
+  margin-top: 10px;
 }

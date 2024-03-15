@@ -4,84 +4,84 @@ import Card from '/components/Card';
 
 function App() {
   const [cards, setCards] = useState([{
-    question: 'food',
-    answer: 'src/assets/food_sign.png',
+    answer: 'food',
+    question: 'src/assets/food_sign.png',
     difficulty: 'easy'
   },
   {
-    question: "like",
-    answer: "src/assets/like_sign.png",
+    answer: "like",
+    question: "src/assets/like_sign.png",
     difficulty: 'easy'
   },
   {
-    question: "don't like",
-    answer: "src/assets/don't like_sign.png",
+    answer: "don't like",
+    question: "src/assets/don't like_sign.png",
     difficulty: 'easy'
   },
   {
-    question: "together",
-    answer: "src/assets/together_sign.png",
+    answer: "together",
+    question: "src/assets/together_sign.png",
     difficulty: 'medium'
 
   },
   {
-    question: "right/correct",
-    answer: "src/assets/correct_sign.png",
+    answer: "right/correct",
+    question: "src/assets/correct_sign.png",
     difficulty: 'easy'
   },
   {
-    question: "wrong",
-    answer: "src/assets/wrong.gif",
+    answer: "wrong",
+    question: "src/assets/wrong.gif",
     difficulty: 'easy'
   },
   {
-    question: "fall in love",
-    answer: "src/assets/fallinlove.gif",
+    answer: "fall in love",
+    question: "src/assets/fallinlove.gif",
     difficulty: 'medium'
   },
   {
-    question: "Christmas",
-    answer: "src/assets/christmas.png",
+    answer: "Christmas",
+    question: "src/assets/christmas.png",
     difficulty: 'hard'
   },
   {
-    question: "rainbow",
-    answer: "src/assets/rainbow.png",
+    answer: "rainbow",
+    question: "src/assets/rainbow.png",
     difficulty: 'hard'
   },
   {
-    question: "old",
-    answer: "src/assets/old.png",
+    answer: "old",
+    question: "src/assets/old.png",
     difficulty: 'easy'
   },
   {
-    question: "pretty/beautiful",
-    answer: "src/assets/beautiful.png",
+    answer: "pretty/beautiful",
+    question: "src/assets/beautiful.png",
     difficulty: 'easy'
   },
   {
-    question: "wedding",
-    answer: "src/assets/wedding.png",
+    answer: "wedding",
+    question: "src/assets/wedding.png",
     difficulty: 'medium'
   },
   {
-    question: "half hour",
-    answer: "src/assets/half-hour-1.gif",
+    answer: "half hour",
+    question: "src/assets/half-hour-1.gif",
     difficulty: 'medium'
   },
   {
-    question: "vacation",
-    answer: "src/assets/vacation.png",
+    answer: "vacation",
+    question: "src/assets/vacation.png",
     difficulty: 'medium'
   },
   {
-    question: "picture",
-    answer: "src/assets/picture.gif",
+    answer: "picture",
+    question: "src/assets/picture.gif",
     difficulty: 'hard'
   },
   {
-    question: "some",
-    answer: "src/assets/some.gif",
+    answer: "some",
+    question: "src/assets/some.gif",
     difficulty: 'hard'
   }]);
 
@@ -89,6 +89,7 @@ function App() {
   const [isFlipped, checkIsFlipped] = useState(false);
   const [userInput, setUserInput] = useState("");
   const [seenCards, setSeenCards] = useState([]);
+  const [inputClass, setInputClass] = useState('');
 
   const randomCards = () => {
     const random = [...cards];
@@ -127,13 +128,38 @@ function App() {
     }
     checkIsFlipped(false); // Reset flipped state
   };
-  
+
 
   const difficultyColors = {
     easy: "lightgreen",
-    medium: "orange",
+    medium: "lightblue",
     hard: "pink"
   };
+
+  const handleInputChange = (e) => {
+    setUserInput(e.target.value);
+  };
+
+  const checkAnswer = () => {
+    // Get the correct answer for the current card
+    const correctAnswer = cards[index].answer.toLowerCase();
+
+    // Convert user input to lowercase for case-insensitive comparison
+    const guess = userInput.toLowerCase();
+
+    // Check if the guess is correct
+    const isCorrectGuess = guess === correctAnswer;
+
+    // Apply appropriate CSS class based on correctness of the guess
+    const newInputClass = isCorrectGuess ? 'correct' : 'incorrect';
+
+    // Update the inputClass state variable
+    setInputClass(newInputClass);
+
+    // Clear the input field after submission
+    setUserInput('');
+  };
+
 
   return (
     <>
@@ -148,9 +174,20 @@ function App() {
         isFlipped={isFlipped}
         checkIsFlipped={checkIsFlipped}
         color={difficultyColors[cards[index].difficulty]} />
-       {/* guess section */}
-      <button onClick={handlePrevSwitchCard} disabled={index === 0}> ← </button>
-      <button onClick={handleSwitchCard}> → </button>
+      {/* guess section */}
+      <div className='guess-area'>
+        <p>Make your guess here: </p>
+        <input
+          type='text'
+          name='answer'
+          value={userInput}
+          placeholder='Answer'
+          onChange={handleInputChange}
+          className={`guess-input ${inputClass}`}></input>
+        <button id='submit' onClick={checkAnswer}>Submit</button>
+      </div>
+      <button id="prev" onClick={handlePrevSwitchCard} disabled={index === 0}> ← </button>
+      <button id="next" onClick={handleSwitchCard}> → </button>
     </>
   )
 }

@@ -6,13 +6,13 @@ const Card = (props) => {
     }
 
     return (
-        <div className={`card ${props.isFlipped ? "flipped" : ""}`} onClick={handleFlipCard} style={{backgroundColor: props.color}}>
+        <div className={`card ${props.isFlipped ? "flipped" : ""}`} onClick={handleFlipCard} style={{ backgroundColor: props.color }}>
             <div className="card-inner">
                 <div className="front">
-                    <p>{props.question}</p>
+                    <img className='answer' src={props.question}></img>
                 </div>
                 <div className="back">
-                    <img className='answer' src={props.answer}></img>
+                    <p>{props.answer}</p>
                 </div>
             </div>
         </div>
